@@ -10,12 +10,13 @@ struct no_{
     ITEM *item;
     NO *proximo;
     NO *baixo;
+    int nivel;
 };
 
 //explicar
 struct skiplist_{ 
     NO *cabeca;
-    int nivel;
+    int tamanho;
 };
 
 //funcao para criar a skiplist
@@ -26,12 +27,6 @@ SKIPLIST *skiplist_criar(void) {
         printf("Erro na alocacao\n");
         exit(1);
     }
-
-    //no
-    if (((lista->cabeca) = (NO *) malloc(sizeof(NO))) == NULL) {
-        printf("Erro na alocacao\n");
-        exit(1);
-    }    
 
     return lista;
 }
