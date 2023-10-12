@@ -30,8 +30,8 @@ remocao (str1) - remove uma palavra
 busca (str1) - imprime a definicao da palavra buscada
 impressao (ch1) - imprime todas as palavras iniciadas pelo ch1 e suas definicoes (em ordem alfabetica)
 
-caso a palavra buscada para remover, alterar ou buscar nao exista, devera ser impresso "OPERACAO INVALIDA"
-se nao existem palavras iniciadas por ch1, deve imprimir "NAO HA PALAVRAS INICIADAS POR %c, ch1"
+remover, alterar ou buscar nao exista, devera ser impresso "OPERACAO INVALIDA"
+ch1, deve imprimir "NAO HA PALAVRAS INICIADAS POR %c, ch1"
 
 palavra -> 50 ch
 definicao -> 140 ch
