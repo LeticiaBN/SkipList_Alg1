@@ -9,4 +9,6 @@
 
 	SKIPLIST *skiplist_criar(void);
 
+	bool skiplist_vazia(SKIPLIST *lista);
+
 #endif
