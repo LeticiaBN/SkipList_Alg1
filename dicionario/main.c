@@ -12,12 +12,57 @@ Pedro Louro Fernandes - 13672446
 #include <time.h>
 
 #include "item.h"
-#include "lista.h"
+#include "skiplist.h"
 
 int main () {
+    srand(time(NULL));
 
+    SKIPLIST *lista;
+
+    lista = skiplist_criar();
+
+    ITEM *a;
+    ITEM *b;
+    ITEM *c;
+    ITEM *d;
+    ITEM *e;
+
+    a = item_criar("abaacx", "fruta doce");
+    b = item_criar("aa", "vrum vrum");
+    c = item_criar("aavalo", "animal pocotó");
+    d = item_criar("aba", "animal pocotó");
+    e = item_criar("aiamante", "faz armadura pika");
+
+    lista_inserir(lista, a);
+    skiplist_imprimir(lista, 'c');
+    printf("A\n\n");
+    lista_inserir(lista, b);
+    skiplist_imprimir(lista, 'c');
+    printf("B\n\n");
+    lista_inserir(lista, c);
+    skiplist_imprimir(lista, 'c');
+    printf("C\n\n");
+    lista_inserir(lista, d);
+    skiplist_imprimir(lista, 'c');
+    printf("D\n\n");
+    lista_inserir(lista, e);
+    skiplist_imprimir(lista, 'c');
+    printf("E\n\n");
+    skiplist_imprimir(lista, 'a');
+    printf("F\n\n");
     return 0;
 }
+
+/*
+implementar o print da busca
+//se a palavra a ser buscada nao for igual a palavra atual, ele ira imprimir "operacao invalida", pois a palavra nao existe no dicionario
+        if(strcmp(item_get_palavra(sentinela->item), palavra) != 0) {
+            printf("OPERACAO INVALIDA\n");
+        } else {
+            //se existir, ele ira imprimir a palavra e sua definicao
+            item_imprimir(sentinela->item);
+        }
+*/
 
 /*
 str1 = palavra

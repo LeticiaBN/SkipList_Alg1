@@ -1,15 +1,16 @@
 #ifndef SKIPLIST_H
 	#define SKIPLIST_H
 	
-	#include <stdbool.h>
-	#include <stdlib.h>
-	#include <stdio.h>
+	#include "item.h"
 
 	typedef struct skiplist_ SKIPLIST;
 
 	SKIPLIST *skiplist_criar(void);
-	void skiplist_busca(SKIPLIST *lista, char *palavra);
+	int lista_inserir(SKIPLIST *lista, ITEM *item);
+	int skiplist_busca(SKIPLIST *lista, char *palavra);
 	void skiplist_imprimir(SKIPLIST *lista, char letra);
-	bool skiplist_vazia(SKIPLIST *lista);
+	int skiplist_vazia(SKIPLIST *lista);
+	//remocao
+	//alterar
 
 #endif

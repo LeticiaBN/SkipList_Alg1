@@ -1,15 +1,18 @@
-﻿all: item.o main2.o
-	gcc item.o main2.o -o main2 -std=c99 -Wall
+﻿all: skiplist.o item.o main.o
+	gcc skiplist.o item.o main.o -o main -std=c99 -Wall
 
+skiplist.o:
+	gcc -c skiplist.c -o skiplist.o
+	
 item.o:
 	gcc -c item.c -o item.o
 	 
-main2.o:
-	gcc -c main2.c -o main2.o
+main.o:
+	gcc -c main.c -o main.o
 	 
 clean:
-	rm *.o main2
+	rm *.o main
 
 run:
-	./main2
+	./main
 
