@@ -14,72 +14,103 @@ Pedro Louro Fernandes - 13672446
 #include "item.h"
 #include "skiplist.h"
 
+void insercao(SKIPLIST *lista);
+void alteracao(SKIPLIST *lista);
+void remocao(SKIPLIST *lista);
+void busca(SKIPLIST *lista);
+void impressao(SKIPLIST *lista);
+
 int main () {
     srand(time(NULL));
 
     SKIPLIST *lista;
 
     lista = skiplist_criar();
+    
+    char operacao[11];
+    
+    while (scanf(" %s", operacao) != EOF) {
+        if(strcmp(operacao, "insercao") == 0) {
+            insercao(lista);
+        }
+        else if (strcmp(operacao, "alteracao") == 0) {
+            alteracao(lista);
+        }
+        else if (strcmp(operacao, "remocao") == 0) {
+            remocao(lista);
+        }
+        else if (strcmp(operacao, "busca") == 0) {
+            busca(lista);
+        }
+        else if (strcmp(operacao, "impressao") == 0) {
+            impressao(lista);
+        }
+    }
 
-    ITEM *a;
-    ITEM *b;
-    ITEM *c;
-    ITEM *d;
-    ITEM *e;
+    skiplist_apagar(&lista);
 
-    a = item_criar("abaacx", "fruta doce");
-    b = item_criar("aa", "vrum vrum");
-    c = item_criar("aavalo", "animal pocotó");
-    d = item_criar("aba", "animal pocotó");
-    e = item_criar("aiamante", "faz armadura pika");
-
-    lista_inserir(lista, a);
-    skiplist_imprimir(lista, 'c');
-    printf("A\n\n");
-    lista_inserir(lista, b);
-    skiplist_imprimir(lista, 'c');
-    printf("B\n\n");
-    lista_inserir(lista, c);
-    skiplist_imprimir(lista, 'c');
-    printf("C\n\n");
-    lista_inserir(lista, d);
-    skiplist_imprimir(lista, 'c');
-    printf("D\n\n");
-    lista_inserir(lista, e);
-    skiplist_imprimir(lista, 'c');
-    printf("E\n\n");
-    skiplist_imprimir(lista, 'a');
-    printf("F\n\n");
     return 0;
 }
 
-/*
-implementar o print da busca
-//se a palavra a ser buscada nao for igual a palavra atual, ele ira imprimir "operacao invalida", pois a palavra nao existe no dicionario
-        if(strcmp(item_get_palavra(sentinela->item), palavra) != 0) {
-            printf("OPERACAO INVALIDA\n");
-        } else {
-            //se existir, ele ira imprimir a palavra e sua definicao
-            item_imprimir(sentinela->item);
-        }
-*/
+void insercao(SKIPLIST *lista) {
+    char palavra[51];
+    char definicao[141];
 
-/*
-str1 = palavra
-str2 = definicao
+    scanf(" %s", palavra);
+    getchar();
+    fgets(definicao, 141, stdin);
 
-O dicionario deve ter as funçoes:
-insercao (str1, str2) - insere nova palavra e definicao
-alteracao (str1, str2) - altera a definicao de uma palavra
-remocao (str1) - remove uma palavra
-busca (str1) - imprime a definicao da palavra buscada
-impressao (ch1) - imprime todas as palavras iniciadas pelo ch1 e suas definicoes (em ordem alfabetica)
+    ITEM *inserir;
+    inserir = item_criar(palavra, definicao);
 
-remover, alterar ou buscar nao exista, devera ser impresso "OPERACAO INVALIDA"
-ch1, deve imprimir "NAO HA PALAVRAS INICIADAS POR %c, ch1"
+    ITEM *encontrado = skiplist_busca(lista, inserir, skiplist_upleft(lista));
+    
+    if(encontrado != NULL && (strcmp(item_get_palavra(encontrado), item_get_palavra(inserir))) == 0) {
+        printf("OPERACAO INVALIDA\n");
+        item_apagar(&inserir);
+    } else {
+        skiplist_inserir(lista, inserir, skiplist_upleft(lista));
+    }
+}
 
-palavra -> 50 ch
-definicao -> 140 ch
+void alteracao(SKIPLIST *lista) {
+    char palavra[51];
+    char definicao[141];
 
-usar a estrutura de dados SKIP LIST
-*/
+    scanf(" %s", palavra);
+    getchar();
+    fgets(definicao, 141, stdin);
+    
+    if (skiplist_alterar_definicao(lista, palavra, definicao) == 0) {
+        printf("OPERACAO INVALIDA\n");
+    }
+}
+
+void remocao(SKIPLIST *lista) {
+    char palavra[51];
+
+    scanf(" %s", palavra);
+
+    ITEM *removido;
+    removido = item_criar(palavra, "");
+    if(skiplist_remover(lista, removido, skiplist_upleft(lista)) == 0) {
+        printf("OPERACAO INVALIDA\n");
+    }
+    item_apagar(&removido);
+}
+
+void busca(SKIPLIST *lista) {
+    char palavra[51];
+    scanf(" %s", palavra);
+    if(skiplist_imprimir_busca(lista, palavra) == 0) {
+        printf("OPERACAO INVALIDA\n");
+    }
+}
+
+void impressao(SKIPLIST *lista) {
+    char ch;
+    scanf(" %c", &ch);
+    if(skiplist_imprimir(lista, ch) == 0) {
+        printf("NAO HA PALAVRAS INICIADAS POR %c\n", ch);
+    }
+}
